@@ -1,0 +1,7 @@
+gpcr_path: /home/mizuno/data/G_pCR
+
+# 生成画像の設定
+FIGSIZE: 256
+self.vectorTimes: 1
+aaindex1: PUNT030102
+aaindex2: QIAN880126
