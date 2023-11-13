@@ -1,5 +1,18 @@
 import os
 import matplotlib.pylab as plt
+import json
+
+class IOTools:
+    def __init__(self) -> None:
+        pass
+
+    def save_json(self, obj, fname):
+        with open(fname, "w") as f:
+            json.dump(obj, f, indent=2)
+
+    def save_dataframe(self, df, fname):
+        df.to_csv(fname)
+
 
 class DrawTools:
     def __init__(self) -> None:
@@ -26,9 +39,11 @@ class DrawTools:
         plt.clf()
         plt.close()
 
-class Tools(DrawTools):
-    def __init__(self) -> None:
-        DrawTools().__init__()
 
-if __name__ == '__main__':
+class Tools(IOTools, DrawTools):
+    def __init__(self) -> None:
+        super().__init__()
+
+
+if __name__ == "__main__":
     tools = Tools()

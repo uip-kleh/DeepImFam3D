@@ -1,8 +1,7 @@
-gpcr_path: /home/mizuno/data/G_pCR
+gpcr_path: /home/mizuno/data/GPCR
 
 # 生成画像の設定
 method: mizuta
 FIGSIZE: 256
-times: 1
 aaindex1: PUNT030102
 aaindex2: QIAN880126
