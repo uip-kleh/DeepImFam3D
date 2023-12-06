@@ -29,7 +29,7 @@ class ImageDataFrameGenerator:
 
         imageDataGenerator = ImageDataGenerator(
             # preprocessing_function=lambda img: img / 255.0,
-            # rescale=1/255.
+            rescale=1/255.
         )
 
         trainDataFrameGenerator = imageDataGenerator.flow_from_dataframe(

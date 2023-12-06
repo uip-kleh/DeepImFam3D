@@ -50,7 +50,6 @@ class SetConfig:
         self.data_img = os.path.join(self.data_size, "img")
         self.new_path.append(self.data_img)
         self.images_path = os.path.join(self.data_size, "images_path.csv")
-        print(self.data_img)
 
         # 結果の保存
         self.result = "result"

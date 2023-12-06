@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import keras
-from keras import optimizers
+from keras import optimizers, regularizers
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 from sklearn.metrics import confusion_matrix
 from setconfig import SetConfig
@@ -104,7 +104,7 @@ class DeepImFam(SetConfig, Tools):
             subsubfamily.append(self.dict_subsubfamily[label])
             subfamily.append(self.dict_subfamily[label])
             family.append(self.dict_family[label])
-            fname = os.path.join(self.data_img, str(i) + ".bmp")
+            fname = os.path.join(self.data_img, str(i) + ".png")
             img_path.append(fname)
 
         df = pd.DataFrame.from_dict({
@@ -147,13 +147,13 @@ class DeepImFam(SetConfig, Tools):
                 keras.layers.Conv2D(64, (2, 2), padding="same"),
                 keras.layers.MaxPooling2D((2, 2)),
                 keras.layers.Flatten(),
-                keras.layers.Dense(32, activation="relu"),
+                keras.layers.Dense(32, activation="relu", kernel_regularizer=regularizers.l2(0.001)),
                 keras.layers.Dropout(self.dropout_ratio),
-                keras.layers.Dense(512, activation="relu"),
+                keras.layers.Dense(512, activation="relu", kernel_regularizer=regularizers.l2(0.001)),
                 keras.layers.Dropout(self.dropout_ratio),
-                keras.layers.Dense(512, activation="relu"),
+                keras.layers.Dense(512, activation="relu", kernel_regularizer=regularizers.l2(0.001)),
                 keras.layers.Dropout(self.dropout_ratio),
-                keras.layers.Dense(64, activation="relu"),
+                keras.layers.Dense(64, activation="relu", kernel_regularizer=regularizers.l2(0.001)),
                 keras.layers.Dense(5, activation="softmax"),
             ])
 
@@ -232,5 +232,5 @@ if __name__ == '__main__':
     deepimfam.train()
 
     # 結果のプロット
-    # deepimfam.plot_result()
-    # deepimfam.make_confusion_matrix()
+    deepimfam.plot_result()
+    deepimfam.make_confusion_matrix()
