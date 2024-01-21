@@ -1,12 +1,20 @@
 gpcr_path: /home/mizuno/data/GPCR
 
 # 生成画像の設定
+<<<<<<< HEAD
 is_gray: False
 method: mizuta3d
 FIGSIZE: 256
 aaindex1: HUTJ700101
 aaindex2: SNEP660104
 aaindex3: OLSK800101
+=======
+is_gray: True
+method: mizuta
+FIGSIZE: 128
+aaindex1: PUNT030102
+aaindex2: QIAN880126
+>>>>>>> 0b02021e00a1254091f4a1c7a17abdc9c77bf0c0
 
 # モデルの設定
 dropout_ratio: .5
