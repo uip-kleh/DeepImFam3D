@@ -6,8 +6,13 @@ import numpy as np
 import pandas as pd
 import matplotlib.pylab as plt
 import tensorflow as tf
+<<<<<<< HEAD
 from tensorflow import keras
 from keras import layers, optimizers, regularizers
+=======
+import keras
+from keras import optimizers, regularizers
+>>>>>>> 0b02021e00a1254091f4a1c7a17abdc9c77bf0c0
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import confusion_matrix, f1_score
@@ -436,6 +441,7 @@ if __name__ == '__main__':
     # deepimfam.train()
 
     # 結果のプロット
+<<<<<<< HEAD
     # deepimfam.plot_result()
     # deepimfam.make_confusion_matrix()
 
@@ -444,3 +450,7 @@ if __name__ == '__main__':
     deepimfam.plot_cross_result()
 
     # deepimfam.calc_macrof1()
+=======
+    deepimfam.plot_result()
+    deepimfam.make_confusion_matrix()
+>>>>>>> 0b02021e00a1254091f4a1c7a17abdc9c77bf0c0
