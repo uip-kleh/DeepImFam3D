@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import RandomOverSampler
 from keras.preprocessing.image import ImageDataGenerator
 
 
@@ -27,9 +28,13 @@ class ImageDataFrameGenerator:
             self.df, test_size=0.2, shuffle=True, random_state=1
         )
 
+        sampler = RandomOverSampler(random_state=42)
+        train_df, _ = sampler.fit_resample(train_df, train_df["family"])
+        print(len(train_df))
+
         imageDataGenerator = ImageDataGenerator(
             # preprocessing_function=lambda img: img / 255.0,
-            # rescale=1/255.
+            rescale=1/255.
         )
 
         trainDataFrameGenerator = imageDataGenerator.flow_from_dataframe(

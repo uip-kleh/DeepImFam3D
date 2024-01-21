@@ -4,6 +4,7 @@ import seaborn as sns
 import json
 import pandas as pd
 from tensorflow import keras
+from sklearn.model_selection import train_test_split, StratifiedKFold
 
 class IOTools:
     def __init__(self) -> None:
@@ -33,7 +34,8 @@ class IOTools:
 
 class DrawTools:
     def __init__(self) -> None:
-        pass
+        plt.rcParams["font.family"] = "DejaVu Serif"   # 使用するフォント
+        plt.rcParams["font.size"] = 20                 # 文字の大きさ
 
     # ベクトルの表示
     def draw_vectors(self, vector_dict, fname):
@@ -46,7 +48,7 @@ class DrawTools:
         plt.title("AMINO VECTOR")
         self.save(fname)
 
-    def draw_history(self, df, label, fname):
+    def draw_history(self, df, label, fname, xrange=(), yrange=()):
         acc = df[label]
         val_acc = df["val_" + label]
         epochs = [i+1 for i in range(len(acc))]
@@ -54,21 +56,38 @@ class DrawTools:
         plt.plot(epochs, acc, label=label)
         plt.plot(epochs, val_acc, label="val_"+label)
 
+        if xrange: plt.xlim(xrange)
+        if yrange: plt.ylim(yrange)
+
         # plt.title(label)
-        plt.xlabel("epochs")
-        plt.ylabel(label)
-        plt.legend()
+        plt.xlabel("epochs", fontsize=18)
+        plt.ylabel(label, fontsize=18)
+        plt.legend(fontsize=18)
+        plt.tick_params(labelsize=18)
+
+        plt.tight_layout()
+
         # plt.show()
         self.save(fname)
 
     def draw_confusion_matrix(self, cm, norm, fname):
+
+        columns = ["A", "B", "C", "D", "E"]
+        df = pd.DataFrame({
+            columns[0]: cm[:, 0],
+            columns[1]: cm[:, 1],
+            columns[2]: cm[:, 2],
+            columns[3]: cm[:, 3],
+            columns[4]: cm[:, 4],
+        }, index=columns)
+
         if norm:
-            sns.heatmap(cm, annot=True, square=True, cbar=True, cmap='Blues')
+            sns.heatmap(df, annot=True, square=True, cbar=True, cmap='Blues', annot_kws={"fontsize": 12}, fmt='.3f')
         else:
-            sns.heatmap(cm, annot=True, square=True, cbar=True, cmap='Blues', fmt='d')
+            sns.heatmap(df, annot=True, square=True, cbar=True, cmap='Blues', fmt='d', annot_kws={"fontsize": 12})
         plt.yticks(rotation=0)
-        plt.xlabel("Pre", fontsize=13, rotation=0)
-        plt.ylabel("GT", fontsize=13)
+        plt.xlabel("Pre", fontsize=24, rotation=0)
+        plt.ylabel("GT", fontsize=24)
         self.save(fname)
 
     # ファイルを出力
@@ -82,8 +101,15 @@ class DrawTools:
         plt.clf()
         plt.close()
 
+class MLTools:
+    def generate_cross_index(self, df, labels):
+        index = []
+        kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=1)
+        for train_idx, val_idx in kf.split(df, labels):
+            index.append((train_idx, val_idx))
+        return index
 
-class Tools(IOTools, DrawTools):
+class Tools(IOTools, DrawTools, MLTools):
     def __init__(self) -> None:
         super().__init__()
 

@@ -1,0 +1,14 @@
+{
+ "gpcr_path": "/home/mizuno/data/GPCR",
+ "is_gray": false,
+ "method": "mizuta3d",
+ "FIGSIZE": 256,
+ "aaindex1": "HUTJ700101",
+ "aaindex2": "SNEP660104",
+ "aaindex3": "OLSK800101",
+ "dropout_ratio": 0.5,
+ "max_learning_rate": 0.001,
+ "min_learning_rate": 1e-05,
+ "epochs": 500,
+ "batch_size": 256
+}

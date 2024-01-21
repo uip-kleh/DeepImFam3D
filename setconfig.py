@@ -26,6 +26,7 @@ class SetConfig:
             self.FIGSIZE = args["FIGSIZE"]
             self.aaindex1 = args["aaindex1"]
             self.aaindex2 = args["aaindex2"]
+            self.aaindex3 = args["aaindex3"]
 
             # モデルの設定
             self.dropout_ratio = args["dropout_ratio"]
@@ -37,7 +38,7 @@ class SetConfig:
         # 生成したデータ
         self.data_method = os.path.join(self.cv0_path, self.method)
         self.new_path.append(self.data_method)
-        self.data_aaindex = os.path.join(self.data_method, self.aaindex1 + self.aaindex2)
+        self.data_aaindex = os.path.join(self.data_method, self.aaindex1 + self.aaindex2 + self.aaindex3)
         self.new_path.append(self.data_aaindex)
         color = "binary"
         if self.is_gray: color = "gray"
@@ -50,14 +51,13 @@ class SetConfig:
         self.data_img = os.path.join(self.data_size, "img")
         self.new_path.append(self.data_img)
         self.images_path = os.path.join(self.data_size, "images_path.csv")
-        print(self.data_img)
 
         # 結果の保存
         self.result = "result"
         self.new_path.append(self.result)
         self.result_method = os.path.join(self.result, self.method)
         self.new_path.append(self.result_method)
-        self.result_aaindex = os.path.join(self.result_method, self.aaindex1 + self.aaindex2)
+        self.result_aaindex = os.path.join(self.result_method, self.aaindex1 + self.aaindex2 + self.aaindex3)
         self.new_path.append(self.result_aaindex)
         self.result_color = os.path.join(self.result_aaindex, color)
         self.new_path.append(self.result_color)
